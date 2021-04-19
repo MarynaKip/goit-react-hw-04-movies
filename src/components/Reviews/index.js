@@ -30,7 +30,9 @@ class Reviews extends Component {
             ))}
           </ul>
         )}
-        {!reviews && <p>We don't have any reviews for this movie.</p>}
+        {!reviews.length > 0 && (
+          <p>We don't have any reviews for this movie.</p>
+        )}
       </>
     );
   }
