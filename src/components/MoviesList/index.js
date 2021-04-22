@@ -1,6 +1,6 @@
 import { Link, withRouter } from "react-router-dom";
 
-const MoviesList = ({ movies, url, location }) => {
+const MoviesList = ({ movies, url, query, location }) => {
   return (
     <ul>
       {movies.map(
@@ -13,6 +13,7 @@ const MoviesList = ({ movies, url, location }) => {
 
                   state: {
                     from: location,
+                    query,
                   },
                 }}
               >

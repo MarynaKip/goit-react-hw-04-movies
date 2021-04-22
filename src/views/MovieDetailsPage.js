@@ -94,8 +94,16 @@ class MovieDetailsPage extends Component {
         </ul>
 
         <Suspense fallback={<h1>Downloading...</h1>}>
-          <Route path={`${match.path}/cast`} component={Cast} />
-          <Route path={`${match.path}/reviews`} component={Reviews} />
+          <Route
+            path={`${match.path}/cast`}
+            component={Cast}
+            onClick={this.handleGoBack}
+          />
+          <Route
+            path={`${match.path}/reviews`}
+            component={Reviews}
+            onClick={this.handleGoBack}
+          />
         </Suspense>
       </>
     );
