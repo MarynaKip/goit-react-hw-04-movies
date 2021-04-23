@@ -29,12 +29,9 @@ const App = () => (
     <Suspense fallback={<h1>Downloading...</h1>}>
       <Switch>
         <Route exact path={routes.home} component={HomePage} />
-        <Route
-          path="/movies/:movieId?query=:searchQuery"
-          component={MovieDetailsPage}
-        />
-        <Route path="/movies?query=:searchQuery" component={QueryPage} />
-        <Route exact path="/movies" component={MoviesPage} />
+        <Route path={routes.movieDetails} component={MovieDetailsPage} />
+        <Route path={routes.moviesSearch} component={QueryPage} />
+        <Route exact path={routes.movies} component={MoviesPage} />
 
         <Route component={NotFoundView} />
       </Switch>
