@@ -19,13 +19,21 @@ const MovieDetailsPage = lazy(() =>
   )
 );
 
+const QueryPage = lazy(() =>
+  import("./views/QueryPage.js" /* webpackChunkName: "query-page" */)
+);
+
 const App = () => (
   <>
     <AppBar />
     <Suspense fallback={<h1>Downloading...</h1>}>
       <Switch>
         <Route exact path={routes.home} component={HomePage} />
-        <Route path="/movies/:movieId" component={MovieDetailsPage} />
+        <Route
+          path="/movies/:movieId?query=:searchQuery"
+          component={MovieDetailsPage}
+        />
+        <Route path="/movies?query=:searchQuery" component={QueryPage} />
         <Route exact path="/movies" component={MoviesPage} />
 
         <Route component={NotFoundView} />

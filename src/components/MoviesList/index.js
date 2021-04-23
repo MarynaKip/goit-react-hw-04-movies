@@ -9,7 +9,7 @@ const MoviesList = ({ movies, url, query, location }) => {
             <li key={movie.id}>
               <Link
                 to={{
-                  pathname: `${url}/${movie.id}`,
+                  pathname: `${url}/${movie.id}?query=${query}`,
 
                   state: {
                     from: location,
