@@ -31,26 +31,33 @@ class MovieDetailsPage extends Component {
     const response = await Axios.get(
       `https://api.themoviedb.org/3/movie/${ID}?api_key=4c4ccfa5cd696090db809b7747038046&language=en-US`
     );
-    this.setState({ ID: ID });
-    this.setState({ posterPath: response.data.poster_path });
-    this.setState({ title: response.data.original_title });
-    this.setState({ releaseDate: response.data.release_date });
-    this.setState({ votes: response.data.vote_average });
-    this.setState({ overview: response.data.overview });
-    this.setState({ genres: response.data.genres });
+    this.setState({
+      ID: ID,
+      posterPath: response.data.poster_path,
+      title: response.data.original_title,
+      releaseDate: response.data.release_date,
+      votes: response.data.vote_average,
+      overview: response.data.overview,
+      genres: response.data.genres,
+    });
   }
 
   handleGoBack = () => {
     const { location, history } = this.props;
-    history.push(
-      // {
-      // pathname:
-      location?.state?.from || routes.home
-      //   state: location.state,
-      // }
-    );
+    history.push({
+      pathname: location?.state?.from || routes.home,
+      state: location.state.query || "",
+    });
     //location.state.push(location.state);
   };
+
+  // handleGoBack = () => {
+  //   const { location, history } = this.props;
+  //   history.push(
+  //          location?.state?.from || routes.home
+  //         );
+
+  //};
 
   render() {
     const {
