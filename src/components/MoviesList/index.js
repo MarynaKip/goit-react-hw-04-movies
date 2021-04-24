@@ -1,6 +1,8 @@
 import { Link, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import routes from "../../routes";
 
-const MoviesList = ({ movies, url, query, location }) => {
+const MoviesList = ({ movies, location }) => {
   return (
     <ul>
       {movies.map(
@@ -9,11 +11,10 @@ const MoviesList = ({ movies, url, query, location }) => {
             <li key={movie.id}>
               <Link
                 to={{
-                  pathname: `${url}/${movie.id}?query=${query}`,
+                  pathname: `${routes.movies}/${movie.id}`,
 
                   state: {
                     from: location,
-                    query,
                   },
                 }}
               >
@@ -24,6 +25,10 @@ const MoviesList = ({ movies, url, query, location }) => {
       )}
     </ul>
   );
+};
+
+MoviesList.propTypes = {
+  movies: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
 export default withRouter(MoviesList);

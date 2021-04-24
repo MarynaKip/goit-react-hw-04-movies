@@ -1,45 +1,31 @@
 import React, { Component } from "react";
 import styles from "../../styles/SearchBar.module.css";
-import { NavLink, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
 class SearchBar extends Component {
   state = {
     query: "",
   };
 
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   this.props.onSubmit(this.state.query);
-  //   //this.setState({ query: "" });
-  // };
-
   handleChange = (e) => {
     this.setState({ query: e.currentTarget.value });
   };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.onSubmit(this.state.query);
+  };
+
   render() {
     const { query } = this.state;
-    return (
-      <header className={styles.Searchbar}>
-        {/* <header className={styles.Searchbar} onSubmit={this.handleSubmit}> */}
-        <form className={styles.SearchForm}>
-          {/* <button type="submit" className={styles.SearchForm_button}>
-            <span className={styles.SearchForm_button_label}>Search</span>
-          </button> */}
-          <NavLink
-            to={{
-              pathname: `/movies?query=${query}`,
 
-              state: {
-                from: this.props.location,
-                query,
-              },
-            }}
-            className={styles.SearchForm_button}
-          >
+    return (
+      <header className={styles.Searchbar} onSubmit={this.handleSubmit}>
+        <form className={styles.SearchForm}>
+          <button type="submit" className={styles.SearchForm_button}>
             <span className={styles.SearchForm_button_label}>Search</span>
-          </NavLink>
+          </button>
 
           <input
             className={styles.SearchForm_input}
@@ -54,5 +40,9 @@ class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default withRouter(SearchBar);

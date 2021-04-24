@@ -1,5 +1,5 @@
 import React, { Component, Suspense, lazy } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route, Switch, withRouter } from "react-router-dom";
 import Axios from "axios";
 import styles from "../styles/MovieDetailsPage.module.css";
 import routes from "../routes";
@@ -20,19 +20,15 @@ class MovieDetailsPage extends Component {
     votes: null,
     overview: null,
     genres: [],
-    ID: "",
   };
 
   async componentDidMount() {
     const { movieId } = this.props.match.params;
-    const ID = movieId.replace("?", "");
 
-    console.log(movieId);
     const response = await Axios.get(
-      `https://api.themoviedb.org/3/movie/${ID}?api_key=4c4ccfa5cd696090db809b7747038046&language=en-US`
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=4c4ccfa5cd696090db809b7747038046&language=en-US`
     );
     this.setState({
-      ID: ID,
       posterPath: response.data.poster_path,
       title: response.data.original_title,
       releaseDate: response.data.release_date,
@@ -44,20 +40,8 @@ class MovieDetailsPage extends Component {
 
   handleGoBack = () => {
     const { location, history } = this.props;
-    history.push({
-      pathname: location?.state?.from || routes.home,
-      state: location.state.query || "",
-    });
-    //location.state.push(location.state);
+    history.push(location?.state?.from || routes.home);
   };
-
-  // handleGoBack = () => {
-  //   const { location, history } = this.props;
-  //   history.push(
-  //          location?.state?.from || routes.home
-  //         );
-
-  //};
 
   render() {
     const {
@@ -104,10 +88,24 @@ class MovieDetailsPage extends Component {
         <h2>Additional information:</h2>
         <ul>
           <li>
-            <Link to={`/movies/${this.state.ID}/cast`}>Cast</Link>
+            <Link
+              to={{
+                pathname: `${match.url}/cast`,
+                state: this.props.location.state,
+              }}
+            >
+              Cast
+            </Link>
           </li>
           <li>
-            <Link to={`${match.url}/reviews`}>Reviews</Link>
+            <Link
+              to={{
+                pathname: `${match.url}/reviews`,
+                state: this.props.location.state,
+              }}
+            >
+              Reviews
+            </Link>
           </li>
         </ul>
 
@@ -130,4 +128,4 @@ class MovieDetailsPage extends Component {
   }
 }
 
-export default MovieDetailsPage;
+export default withRouter(MovieDetailsPage);
